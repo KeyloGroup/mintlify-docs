@@ -34,7 +34,7 @@
       "type": "button",
       "label": "Dashboard",
       "href": "https://app.keyloroblox.xyz"
-    }
+    },
     "secondary": {
       "type": "button",
       "label": "Status",
