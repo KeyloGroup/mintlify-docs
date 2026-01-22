@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Keylo Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -13,8 +13,8 @@
       {
         "group": "Getting Started",
         "pages": [
-          "getting-started/untitled-page-1",
-          "getting-started/untitled-page"
+          "getting-started/activity-tracking",
+          "getting-started/workspace-customisation"
         ]
       }
     ]
@@ -27,14 +27,18 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:team@keyloroblox.xyz"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://app.keyloroblox.xyz"
     }
+    "secondary":{
+      "type": "button",
+      "label": "Status",
+      "href": "https://status.keyloroblox.xyz"
   },
   "contextual": {
     "options": [
@@ -50,9 +54,7 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "discord": "https://discord.gg/w7Ut3wnfQs",
     }
   }
 }
