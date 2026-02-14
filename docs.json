@@ -28,8 +28,9 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/Keylo_2.png",
+    "dark": "/images/Keylo_2.png",
+    "href": "https://keyloroblox.xyz"
   },
   "navbar": {
     "links": [
@@ -65,5 +66,11 @@
     "socials": {
       "discord": "https://discord.gg/w7Ut3wnfQs"
     }
+  },
+  "background": {
+    "decoration": "windows"
+  },
+  "thumbnails": {
+    "background": "/images/Keylo_2.webp"
   }
 }
