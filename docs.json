@@ -28,7 +28,7 @@
           {
             "group": "Sessions",
             "pages": [
-              "sessions-retrieve"
+              "retrieve-sessions"
             ]
           }
         ]
