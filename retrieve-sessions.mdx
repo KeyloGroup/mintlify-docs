@@ -83,17 +83,21 @@ When `start_time` is provided:
 
 ## Example Requests
 
-### Retrieve all sessions
-```bash
-curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID" \
-  -H "x-api-key: YOUR_API_KEY"
-  ```
+Retrieve all sessions
 
-### Retrieve the closest session to a timestamp
-```bash
-curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID?start_time=2026-02-14T18:30:00Z" \
-  -H "x-api-key: YOUR_API_KEY"
-  ```
+<CodeBlock language="bash">
+{`curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID" \\
+  -H "x-api-key: YOUR_API_KEY"`}
+</CodeBlock>
+
+Retrieve the closest session to a timestamp
+
+<CodeBlock language="bash">
+{`curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID?start_time=2026-02-14T18:30:00Z" \\
+  -H "x-api-key: YOUR_API_KEY"`}
+</CodeBlock>
+
+---
 
 ## Responses
 
@@ -103,10 +107,10 @@ Returns an array of session records.
 
 > The response structure depends on your workspace session table (`ws_sessions_{workspaceId}`).
 
-#### Example response (multiple sessions)
+Example response (multiple sessions)
 
-```json
-[
+<CodeBlock language="json">
+{`[
   {
     "id": "b6cbbd2a-7f7a-4f67-bef1-1a3f6a4d4f19",
     "workspace_id": "b0a6c81e-2d5d-4f29-bb4b-9a1e0d9f6c11",
@@ -131,7 +135,10 @@ Returns an array of session records.
     "groups": [],
     "created_at": "2026-02-13T20:25:00.000Z"
   }
-]```
+]`}
+</CodeBlock>
+
+---
 
 ### 401 Unauthorized
 
@@ -139,15 +146,19 @@ Returned when the API key is missing or invalid.
 
 Example response (missing key)
 
-{
+<CodeBlock language="json">
+{`{
   "error": "API key missing"
-}
+}`}
+</CodeBlock>
 
 Example response (invalid key)
 
-{
+<CodeBlock language="json">
+{`{
   "error": "Unauthorized: invalid API key"
-}
+}`}
+</CodeBlock>
 
 ---
 
@@ -155,9 +166,11 @@ Example response (invalid key)
 
 Returned when the database query fails.
 
-{
+<CodeBlock language="json">
+{`{
   "error": "Failed to fetch sessions"
-}
+}`}
+</CodeBlock>
 
 ---
 
@@ -165,6 +178,8 @@ Returned when the database query fails.
 
 Sessions are read from a workspace-scoped table:
 
-ws_sessions_{workspaceId}
+<CodeBlock language="txt">
+{`ws_sessions_{workspaceId}`}
+</CodeBlock>
 
 This design ensures session data is isolated per workspace and prevents cross-workspace access.
