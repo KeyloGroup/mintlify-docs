@@ -1,16 +1,18 @@
 ---
 title: "Retrieve Sessions"
-description: "Retrieve a list of sessions for a workspace, optionally filtered by a start time."
+description: "Retrieve a list of sessions for a workspace. Optionally return the session closest to a provided timestamp."
+openapi: GET /sessions/list/{workspaceId}
 ---
 
 # Retrieve Sessions
 
 Use this endpoint to retrieve the sessions stored for a specific workspace.
 
-This is the primary “read” endpoint for sessions and is typically used to:
+This is the primary **read** endpoint for sessions and is typically used to:
+
 - populate dashboards
 - load recent session history
-- retrieve the session closest to a given timestamp (via `start_time`)
+- locate the session closest to a given timestamp (using `start_time`)
 
 ---
 
@@ -22,9 +24,9 @@ This is the primary “read” endpoint for sessions and is typically used to:
 
 ## Authentication
 
-This endpoint requires an API key.
+This endpoint requires a valid workspace API key.
 
-You must provide your workspace API key using the header:
+Include the API key in the request header:
 
 - **Header:** `x-api-key`
 - **Value:** `<your-api-key>`
@@ -54,25 +56,115 @@ If provided, the API returns the session whose `start_time` is **closest** to th
 - **Format:** `date-time` (ISO 8601)
 - **Example:** `2026-02-14T18:30:00Z`
 
-#### Behavior notes
-When `start_time` is included:
+---
+
+## Behavior
+
+This endpoint supports two retrieval modes.
+
+### 1) Default mode (full session history)
+
+When `start_time` is not provided:
+
+- the API returns **all sessions** for the workspace
+- results are ordered by `start_time DESC` (most recent first)
+
+### 2) Closest-session lookup
+
+When `start_time` is provided:
 
 - the API calculates the absolute time difference between each stored session and the requested timestamp
-- it returns the **single closest session**
+- the API returns the **single closest session**
 - results are ordered by smallest time difference
 
-When `start_time` is **not** included:
-
-- the API returns **all sessions**
-- ordered by `start_time DESC` (most recent first)
+> Note: This is not a range filter. Only the closest matching session is returned.
 
 ---
 
-## OpenAPI (Try it)
+## Example Requests
 
-This page is connected directly to the OpenAPI specification.
+### Retrieve all sessions
+```bash
+curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID" \
+  -H "x-api-key: YOUR_API_KEY"
+  ```
 
-You can test this endpoint using the interactive request panel below:
+### Retrieve the closest session to a timestamp
+```bash
+curl -X GET "https://api.keyloroblox.xyz/sessions/list/YOUR_WORKSPACE_ID?start_time=2026-02-14T18:30:00Z" \
+  -H "x-api-key: YOUR_API_KEY"
+  ```
 
-```yaml
-openapi: GET /sessions/list/{workspaceId}
+## Responses
+
+### 200 OK
+
+Returns an array of session records.
+
+> The response structure depends on your workspace session table (`ws_sessions_{workspaceId}`).
+
+#### Example response (multiple sessions)
+
+```json
+[
+  {
+    "id": "b6cbbd2a-7f7a-4f67-bef1-1a3f6a4d4f19",
+    "workspace_id": "b0a6c81e-2d5d-4f29-bb4b-9a1e0d9f6c11",
+    "title": "Training Session",
+    "type": "training",
+    "host_id": "48192015",
+    "co_host_id": null,
+    "start_time": "2026-02-14T18:00:00.000Z",
+    "duration_minutes": 60,
+    "groups": ["Alpha", "Bravo"],
+    "created_at": "2026-02-14T17:59:12.000Z"
+  },
+  {
+    "id": "3f6d9e31-3f8f-4e9a-9c1a-20cc1d7c31dd",
+    "workspace_id": "b0a6c81e-2d5d-4f29-bb4b-9a1e0d9f6c11",
+    "title": "Interview",
+    "type": "interview",
+    "host_id": "48192015",
+    "co_host_id": "12044991",
+    "start_time": "2026-02-13T20:30:00.000Z",
+    "duration_minutes": 30,
+    "groups": [],
+    "created_at": "2026-02-13T20:25:00.000Z"
+  }
+]```
+
+### 401 Unauthorized
+
+Returned when the API key is missing or invalid.
+
+Example response (missing key)
+
+{
+  "error": "API key missing"
+}
+
+Example response (invalid key)
+
+{
+  "error": "Unauthorized: invalid API key"
+}
+
+---
+
+### 500 Internal Server Error
+
+Returned when the database query fails.
+
+{
+  "error": "Failed to fetch sessions"
+}
+
+---
+
+## Internal Data Source (Implementation Detail)
+
+Sessions are read from a workspace-scoped table:
+
+ws_sessions_{workspaceId}
+
+This design ensures session data is isolated per workspace and prevents cross-workspace access.
