@@ -23,7 +23,15 @@
         ]
       },
       {
-        "tab": "API Reference"
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Sessions",
+            "pages": [
+              "sessions-retrieve"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -72,5 +80,8 @@
   },
   "thumbnails": {
     "background": "/images/Keylo_2.webp"
+  },
+  "api": {
+    "openapi": "https://api.keyloroblox.xyz/openapi.json"
   }
 }
