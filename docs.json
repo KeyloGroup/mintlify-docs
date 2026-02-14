@@ -9,13 +9,21 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Getting Started",
-        "pages": [
-          "getting-started/activity-tracking",
-          "getting-started/workspace-customisation"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "getting-started/activity-tracking",
+              "getting-started/workspace-customisation"
+            ]
+          }
         ]
+      },
+      {
+        "tab": "API Reference"
       }
     ]
   },
