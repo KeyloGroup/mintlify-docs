@@ -82,6 +82,6 @@
     "background": "/images/Keylo_2.webp"
   },
   "api": {
-    "openapi": "https://api.keyloroblox.xyz/openapi.json"
+    "openapi": "/openapi.json"
   }
 }
