@@ -1,5 +1,10 @@
 ---
-title: "Retrieve Sessions"
+title: Retrieve Sessions
+openapi: GET /sessions/list/{workspaceId}
 ---
 
-rgrgregerger
+This endpoint returns all sessions for a workspace.
+
+### Notes
+- Requires an API key via the `x-api-key` header
+- Optional `start_time` query param will return the closest session
